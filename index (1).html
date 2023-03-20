@@ -89,50 +89,47 @@
     </div>
 
     <script>
-      function deleteData(id) {
-        var requestOptions = {
-          method: "DELETE",
-          redirect: "follow",
-        };
+        const apiUrl = process.env.API_URL;
 
-        fetch(
-          "http://localhost:9035/crud-operation/rest/delete/user/" + id,
-          requestOptions
-        )
-          .then((response) => response.text())
-          .then((result) => {
-            console.log(result);
-            location.reload();
-          })
-          .catch((error) => console.log("error", error));
-      }
-
-      $("document").ready(function () {
-        $("#submitBtn").click(function () {
-          var name = $("#userName").val();
-          var userId = $("#userId").val();
-          var data = {
-            user_name: name,
-            user_id: userId,
+        function deleteData(id) {
+          var requestOptions = {
+            method: "DELETE",
+            redirect: "follow",
           };
-
-          $.post({
-            contentType: "application/json",
-            data: JSON.stringify(data),
-            url: "http://localhost:9035/crud-operation/rest/create/user",
-            success: function (data) {
-              console.log(data);
+        
+          fetch(`${apiUrl}/crud-operation/rest/delete/user/${id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+              console.log(result);
               location.reload();
-            },
-            error: function (e) {
-              console.log(e);
-            },
-          });
-        });
+            })
+            .catch((error) => console.log("error", error));
+        }
 
-        $.get(
-          "http://localhost:9035/crud-operation/rest/getAllUser",
-          function (data) {
+        $("document").ready(function () {
+          $("#submitBtn").click(function () {
+            var name = $("#userName").val();
+            var userId = $("#userId").val();
+            var data = {
+              user_name: name,
+              user_id: userId,
+            };
+          
+            $.post({
+              contentType: "application/json",
+              data: JSON.stringify(data),
+              url: `${apiUrl}/crud-operation/rest/create/user`,
+              success: function (data) {
+                console.log(data);
+                location.reload();
+              },
+              error: function (e) {
+                console.log(e);
+              },
+            });
+          });
+        
+          $.get(`${apiUrl}/crud-operation/rest/getAllUser`, function (data) {
             console.log(data);
             var html = "";
             data.map((data, i) => {
@@ -147,11 +144,11 @@
                 data.id +
                 ");' ><span class='material-symbols-outlined'>delete</span></button></td></tr>";
             });
-
+          
             $(".table tbody").append(html);
-          }
-        );
-      });
+          });
+        });
+
     </script>
   </body>
 </html>
