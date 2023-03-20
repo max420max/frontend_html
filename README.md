@@ -17,11 +17,11 @@
 
 
 
-## to run the code in local system
+## To run the code in local system
 
-## go inside frontend folder 
+## Go inside frontend folder 
 
-## set the environment variable using below command
+## Set the environment variable using below command
 
         export REACT_APP_API_URL=http://localhost:9035
      
